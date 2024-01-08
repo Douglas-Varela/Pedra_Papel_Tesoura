@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedra, Papel e Tesoura</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .escolha {
+            cursor: pointer;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .escondido {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1 class="mt-5">Pedra, Papel e Tesoura</h1>
+
+        <div id="jogador1" class="mt-4">
+            <h2>Jogador 1: Escolha sua jogada</h2>
+            <div class="escolha" onclick="selecionarJogada('pedra', 1)">Pedra</div>
+            <div class="escolha" onclick="selecionarJogada('papel', 1)">Papel</div>
+            <div class="escolha" onclick="selecionarJogada('tesoura', 1)">Tesoura</div>
+        </div>
+
+        <div id="jogador2" class="mt-4 escondido">
+            <h2>Jogador 2: Escolha sua jogada</h2>
+            <div class="escolha" onclick="selecionarJogada('pedra', 2)">Pedra</div>
+            <div class="escolha" onclick="selecionarJogada('papel', 2)">Papel</div>
+            <div class="escolha" onclick="selecionarJogada('tesoura', 2)">Tesoura</div>
+        </div>
+
+        <div id="resultado" class="mt-5"></div>
+    </div>
+
+    <script>
+        var escolhaJogador1 = '';
+        var escolhaJogador2 = '';
+
+        function selecionarJogada(jogada, jogador) {
+            if (jogador === 1) {
+                escolhaJogador1 = jogada;
+                document.getElementById('jogador1').classList.add('escondido');
+                document.getElementById('jogador2').classList.remove('escondido');
+            } else {
+                escolhaJogador2 = jogada;
+                determinarVencedor();
+            }
+        }
+
+        function determinarVencedor() {
+            if (escolhaJogador1 === escolhaJogador2) {
+                mostrarResultado('Empate!');
+            } else if ((escolhaJogador1 === 'pedra' && escolhaJogador2 === 'tesoura') ||
+                       (escolhaJogador1 === 'papel' && escolhaJogador2 === 'pedra') ||
+                       (escolhaJogador1 === 'tesoura' && escolhaJogador2 === 'papel')) {
+                mostrarResultado('Jogador 1 venceu!');
+            } else {
+                mostrarResultado('Jogador 2 venceu!');
+            }
+        }
+
+        function mostrarResultado(mensagem) {
+            document.getElementById('resultado').textContent = mensagem;
+            document.getElementById('jogador2').classList.add('escondido');
+        }
+    </script>
+</body>
+</html>
